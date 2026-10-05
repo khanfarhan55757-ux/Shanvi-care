@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Little Comfort For Shanvi 🌸</title>
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #ffeef2 0%, #ffd6e0 50%, #ffc2d1 100%);
+      --card-bg: rgba(255, 255, 255, 0.94);
+      --primary: #ff4d6d;
+      --primary-hover: #ff758f;
+      --text: #590d22;
+      --accent: #a4133c;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background: var(--bg-gradient);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow-x: hidden;
+      color: var(--text);
+      position: relative;
+    }
+
+    #audio-gate {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(255, 240, 243, 0.96);
+      backdrop-filter: blur(10px);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      text-align: center;
+      padding: 20px;
+    }
+
+    #audio-gate .tap-box {
+      background: white;
+      padding: 30px 24px;
+      border-radius: 24px;
+      box-shadow: 0 15px 35px rgba(255, 77, 109, 0.25);
+      border: 2px dashed var(--primary);
+      animation: pulse 1.5s infinite;
+      max-width: 320px;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+    }
+
+    .bg-bubble {
+      position: absolute;
+      bottom: -40px;
+      font-size: 20px;
+      animation: floatUp 7s linear infinite;
+      opacity: 0.6;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
+      100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+    }
+
+    .container {
+      position: relative;
+      z-index: 10;
+      width: 90%;
+      max-width: 440px;
+      background: var(--card-bg);
+      backdrop-filter: blur(8px);
+      border-radius: 28px;
+      padding: 32px 24px;
+      box-shadow: 0 18px 45px rgba(255, 77, 109, 0.22);
+      border: 2px solid rgba(255, 255, 255, 0.8);
+      text-align: center;
+    }
+
+    .page {
+      display: none;
+      animation: fadeIn 0.45s ease-in-out;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    h2 {
+      font-size: 24px;
+      color: var(--accent);
+      margin-bottom: 14px;
+      font-weight: 700;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 1.55;
+      margin-bottom: 22px;
+      color: var(--text);
+    }
+
+    .avatar-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .avatar {
+      font-size: 58px;
+      display: inline-block;
+      animation: bounce 2s infinite ease-in-out;
+      user-select: none;
+    }
+
+    .boy { animation-delay: 0.2s; }
+    .girl { animation-delay: 0.6s; }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-8px) scale(1.05); }
+    }
+
+    .btn-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    button, .file-label {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 13px 28px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(255, 77, 109, 0.35);
+      transition: all 0.2s ease;
+      width: 100%;
+      max-width: 280px;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    button:hover, .file-label:hover {
+      background: var(--primary-hover);
+      transform: translateY(-2px);
+    }
+
+    .btn-insta {
+      background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      box-shadow: 0 6px 18px rgba(220, 39, 67, 0.35);
+    }
+
+    .btn-secondary {
+      background: #fff;
+      color: var(--accent);
+      border: 1.5px solid var(--primary);
+      box-shadow: none;
+    }
+
+    #runaway-btn {
+      transition: transform 0.15s ease-out;
+    }
+
+    .chocolate-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .choc-card {
+      background: #fff0f3;
+      border: 2px solid transparent;
+      border-radius: 16px;
+      padding: 14px 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+
+    .choc-card:hover, .choc-card.selected {
+      border-color: var(--primary);
+      background: #ffe5ec;
+      transform: scale(1.03);
+    }
+
+    .choc-card span {
+      font-size: 32px;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .choc-card p {
+      font-size: 13px;
+      font-weight: 600;
+      margin: 0;
+      color: var(--accent);
+    }
+
+    .dots {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 24px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #ffccd5;
+      transition: all 0.3s;
+    }
+
+    .dot.active {
+      background: var(--primary);
+      width: 22px;
+      border-radius: 10px;
+    }
+
+    #preview-img {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 12px auto;
+      border: 4px solid var(--primary);
+      display: none;
+      box-shadow: 0 8px 20px rgba(255, 77, 109, 0.3);
+    }
+  </style>
+</head>
+<body>
+
+  <audio id="bg-music" loop autoplay playsinline preload="auto">
+    <source src="song.mp3" type="audio/mpeg">
+  </audio>
+
+  <div id="audio-gate" onclick="unlockAutoplay()">
+    <div class="tap-box">
+      <div style="font-size: 50px; margin-bottom: 10px;">💌</div>
+      <h3 style="color: var(--accent); margin-bottom: 8px;">A Cozy Surprise Inside!</h3>
+      <p style="font-size: 14px; margin-bottom: 12px; color: #7a1c32;">Tap anywhere on the screen to enter with music 🎵</p>
+      <button style="pointer-events: none;">Open Shanvi's Space 🌸</button>
+    </div>
+  </div>
+
+  <div id="bubbles"></div>
+
+  <div class="container">
+    
+    <!-- PAGE 1 -->
+    <div class="page active" id="p1">
+      <div class="avatar-wrap">
+        <span class="avatar boy">🙋‍♂️</span>
+        <span class="avatar girl">🌸</span>
+      </div>
+      <h2>Hey Shanvi! ✨</h2>
+      <p>Pata hai these days are tough, irritating aur painful. Isliye I made a mini cozy space just to cheer you up!</p>
+      <div class="btn-wrap">
+        <button onclick="goTo(2)">Dekhna chahti ho? 💖</button>
+      </div>
+    </div>
+
+    <!-- PAGE 2 -->
+    <div class="page" id="p2">
+      <div class="avatar-wrap">
+        <span class="avatar girl">🥺</span>
+      </div>
+      <h2>Pain Level Check 🩹</h2>
+      <p>How bad is the cramp right now? Be honest:</p>
+      <div class="btn-wrap">
+        <button onclick="goTo(3)">"Thoda sa hai, manageable" 😊</button>
+        <button class="btn-secondary" onclick="goTo(3)">"Boht ganda dard ho rha hai" 😭</button>
+      </div>
+    </div>
+
+    <!-- PAGE 3 -->
+    <div class="page" id="p3">
+      <div class="avatar-wrap">
+        <span class="avatar boy">🫂</span>
+        <span class="avatar girl">🛌</span>
+      </div>
+      <h2>Blanket & Warm Hugs ☕</h2>
+      <p>Ek warm heating pad, comfy blanket aur zero stress zone declare kiya jata hai. You deserve full rest!</p>
+      <div class="btn-wrap">
+        <button onclick="goTo(4)">Agli chiz dekhein? 🍬</button>
+      </div>
+    </div>
+
+    <!-- PAGE 4 -->
+    <div class="page" id="p4">
+      <div class="avatar-wrap">
+        <span class="avatar boy">🍫</span>
+        <span class="avatar girl">👀</span>
+      </div>
+      <h2>The Golden Question 😋</h2>
+      <p>Chocolate khana hai? Mood swing ka best ilaj!</p>
+      <div class="btn-wrap" style="position: relative; min-height: 120px;">
+        <button onclick="goTo(5)">Yes, I want it! 🍫✨</button>
+        <button id="runaway-btn" class="btn-secondary" onmouseover="dodgeNo()" onclick="dodgeNo()">No, I don't want 🙅‍♀️</button>
+      </div>
+    </div>
+
+    <!-- PAGE 5 -->
+    <div class="page" id="p5">
+      <h2>Pick Your Mood Booster 🍓</h2>
+      <p>Kaunsi wali chalegi? Select karo:</p>
+      <div class="chocolate-grid">
+        <div class="choc-card" onclick="selectChoc(this, 'Dairy Milk Silk')">
+          <span>🍫</span>
+          <p>Dairy Milk Silk</p>
+        </div>
+        <div class="choc-card" onclick="selectChoc(this, 'Dark Chocolate')">
+          <span>🤎</span>
+          <p>Dark Chocolate</p>
+        </div>
+        <div class="choc-card" onclick="selectChoc(this, 'Nutella Waffle')">
+          <span>🧇</span>
+          <p>Nutella Waffle</p>
+        </div>
+        <div class="choc-card" onclick="selectChoc(this, 'Hot Cocoa')">
+          <span>☕</span>
+          <p>Warm Cocoa</p>
+        </div>
+      </div>
+      <div class="btn-wrap">
+        <button onclick="goTo(6)">Done, confirm this! 🎀</button>
+      </div>
+    </div>
+
+    <!-- PAGE 6 -->
+    <div class="page" id="p6">
+      <div class="avatar-wrap">
+        <span class="avatar boy">📜</span>
+        <span class="avatar girl">👑</span>
+      </div>
+      <h2>Aaj Ke 3 Royal Niyam 👑</h2>
+      <p>
+        1. Gussa aane par chilla sakti ho 😤<br>
+        2. Bina reason rona aaye toh no problem 🥺<br>
+        3. Kaam/padhai se extra relaxation allowed!
+      </p>
+      <div class="btn-wrap">
+        <button onclick="goTo(7)">I accept these rules! 😎</button>
+      </div>
+    </div>
+
+    <!-- PAGE 7 -->
+    <div class="page" id="p7">
+      <div class="avatar-wrap">
+        <span class="avatar girl">🎧</span>
+        <span class="avatar boy">🕺</span>
+      </div>
+      <h2>Emergency Mood Booster 🎶</h2>
+      <p>Soft playlist chalao, phone do not disturb pe daalo aur bas aaram se lay down ho jao. Overthink zero karna hai!</p>
+      <div class="btn-wrap">
+        <button onclick="goTo(8)">Aage chalte hain 🌿</button>
+      </div>
+    </div>
+
+    <!-- PAGE 8 -->
+    <div class="page" id="p8">
+      <div class="avatar-wrap">
+        <span class="avatar boy">💌</span>
+        <span class="avatar girl">🌸</span>
+      </div>
+      <h2>Reminder: You're Strong 💪</h2>
+      <p>Periods can be exhausting, but remember you handle it like a champ every month. Don't be too hard on yourself today.</p>
+      <div class="btn-wrap">
+        <button onclick="goTo(9)">One last surprise... 🎁</button>
+      </div>
+    </div>
+
+    <!-- PAGE 9 -->
+    <div class="page" id="p9">
+      <div class="avatar-wrap">
+        <span class="avatar girl">🎟</span>
+      </div>
+      <h2>Official Friendship Coupon ✨</h2>
+      <p><b>"Valid for 1 Treat / Listening to Any Rant without complaint."</b><br>Redeemable anytime this week!</p>
+      <div class="btn-wrap">
+        <button onclick="goTo(10)">Redeem Coupon 💝</button>
+      </div>
+    </div>
+
+    <!-- PAGE 10: Click Ur Smile Page -->
+    <div class="page" id="p10">
+      <div class="avatar-wrap">
+        <span class="avatar boy">📸</span>
+        <span class="avatar girl">✨</span>
+      </div>
+      <h2>Click Ur Smile 🌸</h2>
+      <p id="final-summary">Ek pyari si smile click karke bhej do, mujhe bhi pata chale ki mood better hua!</p>
+      
+      <!-- Photo Preview -->
+      <img id="preview-img" src="" alt="Shanvi's Smile" />
+
+      <div class="btn-wrap">
+        <input type="file" id="smile-camera" accept="image/*" capture="user" style="display: none;" onchange="handleSmilePhoto(event)" />
+        
+        <label for="smile-camera" class="file-label" id="capture-btn">
+          📸 Click Ur Smile
+        </label>
+        
+        <!-- Insta Share Button -->
+        <button id="send-btn" class="btn-insta" style="display: none;" onclick="shareToInsta()">
+          📸 Send on Instagram DM
+        </button>
+
+        <button class="btn-secondary" onclick="goTo(1)">Start Again 🔄</button>
+      </div>
+    </div>
+
+    <div class="dots" id="dotsContainer"></div>
+
+  </div>
+
+  <script>
+    const MY_INSTA_USERNAME = "YOUR_INSTA_USERNAME"; // <-- Yahan apna Insta handle daalein (without @)
+
+    const totalPages = 10;
+    let selectedItem = "Chocolate";
+    const audio = document.getElementById('bg-music');
+    const gate = document.getElementById('audio-gate');
+
+    window.addEventListener('load', () => {
+      audio.volume = 0.5;
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          gate.style.display = 'none';
+        }).catch(() => {
+          gate.style.display = 'flex';
+        });
+      }
+    });
+
+    function unlockAutoplay() {
+      audio.play();
+      gate.style.opacity = '0';
+      gate.style.transition = 'opacity 0.4s ease';
+      setTimeout(() => {
+        gate.style.display = 'none';
+      }, 400);
+    }
+
+    const dotsContainer = document.getElementById('dotsContainer');
+    for (let i = 1; i <= totalPages; i++) {
+      const dot = document.createElement('div');
+      dot.className = `dot ${i === 1 ? 'active' : ''}`;
+      dot.id = `dot-${i}`;
+      dotsContainer.appendChild(dot);
+    }
+
+    function goTo(pageNum) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.dot').forEach(d => d.classList.remove('active'));
+
+      const targetPage = document.getElementById(`p${pageNum}`);
+      const targetDot = document.getElementById(`dot-${pageNum}`);
+      
+      if (targetPage) targetPage.classList.add('active');
+      if (targetDot) targetDot.classList.add('active');
+    }
+
+    function dodgeNo() {
+      const btn = document.getElementById('runaway-btn');
+      const randomX = (Math.random() - 0.5) * 160;
+      const randomY = (Math.random() - 0.5) * 100;
+      btn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+    }
+
+    function selectChoc(element, name) {
+      document.querySelectorAll('.choc-card').forEach(c => c.classList.remove('selected'));
+      element.classList.add('selected');
+      selectedItem = name;
+      document.getElementById('final-summary').innerText = 
+        `Aapki "${selectedItem}" delivery reserved hai! Ab ek pyari si smile click karo 🌸`;
+    }
+
+    // Photo Capture and Insta Share handler
+    let photoData = null;
+    function handleSmilePhoto(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const img = document.getElementById('preview-img');
+          img.src = e.target.result;
+          img.style.display = 'block';
+          photoData = file;
+          document.getElementById('capture-btn').innerText = '🔄 Retake Smile';
+          document.getElementById('send-btn').style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function shareToInsta() {
+      // Step 1: System share tray jisme Instagram direct select ho sake
+      if (navigator.share && photoData) {
+        navigator.share({
+          title: "Shanvi's Smile 🌸",
+          text: `Here's my smile! Treating myself with ${selectedItem} today 💖`,
+          files: [photoData]
+        }).catch(() => {
+          openInstaProfile();
+        });
+      } else {
+        openInstaProfile();
+      }
+    }
+
+    function openInstaProfile() {
+      // Direct open Instagram profile/DM
+      window.open(`https://ig.me/m/${MY_INSTA_USERNAME}`, '_blank');
+    }
+
+    const bubbleIcons = ['🌸', '💖', '🍫', '✨', '🩹', '🧸'];
+    const bubbleContainer = document.getElementById('bubbles');
+    for (let i = 0; i < 18; i++) {
+      const b = document.createElement('div');
+      b.className = 'bg-bubble';
+      b.innerText = bubbleIcons[Math.floor(Math.random() * bubbleIcons.length)];
+      b.style.left = Math.random() * 95 + 'vw';
+      b.style.animationDuration = (5 + Math.random() * 5) + 's';
+      b.style.animationDelay = (Math.random() * 5) + 's';
+      bubbleContainer.appendChild(b);
+    }
+  </script>
+</body>
+</html>
